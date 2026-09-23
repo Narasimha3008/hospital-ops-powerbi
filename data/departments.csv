@@ -1,0 +1,9 @@
+department_id,department,beds,base_daily_rate
+1,Emergency,40,1800
+2,Cardiology,36,3200
+3,Orthopedics,30,2800
+4,Pediatrics,28,2200
+5,Oncology,24,3500
+6,Neurology,22,3000
+7,General Surgery,32,3100
+8,ICU,18,5200
