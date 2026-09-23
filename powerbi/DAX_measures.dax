@@ -1,0 +1,72 @@
+/* ============================================================================
+   Hospital Operations — DAX measure library
+   Paste into Power BI Desktop (Model view > New measure).
+   Assumes tables: Admissions (fact), Patients, Departments, Date (date table).
+   In Power Query, set Admissions[readmitted_30d] to TRUE/FALSE (logical).
+   ============================================================================ */
+
+/* ---------------- Volume ---------------- */
+
+Total Admissions =
+COUNTROWS ( Admissions )
+
+Total Patients =
+DISTINCTCOUNT ( Admissions[patient_id] )
+
+Admissions YTD =
+TOTALYTD ( [Total Admissions], 'Date'[Date] )
+
+Admissions MoM % =
+VAR PrevMonth =
+    CALCULATE ( [Total Admissions], DATEADD ( 'Date'[Date], -1, MONTH ) )
+RETURN
+    DIVIDE ( [Total Admissions] - PrevMonth, PrevMonth )
+
+
+/* ---------------- Length of stay & capacity ---------------- */
+
+Avg Length of Stay =
+AVERAGE ( Admissions[length_of_stay] )
+
+Total Bed Days =
+SUM ( Admissions[length_of_stay] )
+
+Avg Daily Census =
+DIVIDE ( [Total Bed Days], DISTINCTCOUNT ( 'Date'[Date] ) )
+
+Bed Occupancy % =
+VAR UsedDays = [Total Bed Days]
+VAR Beds = SUM ( Departments[beds] )
+VAR DaysInPeriod = DISTINCTCOUNT ( 'Date'[Date] )
+RETURN
+    DIVIDE ( UsedDays, Beds * DaysInPeriod )
+// Responds to department and date slicers via relationships.
+
+
+/* ---------------- Quality: readmissions ---------------- */
+
+Readmissions (30-day) =
+CALCULATE (
+    COUNTROWS ( Admissions ),
+    Admissions[readmitted_30d] = TRUE ()
+)
+
+Readmission Rate =
+DIVIDE ( [Readmissions (30-day)], [Total Admissions] )
+// Format as %. Benchmark: < 10% is the internal target.
+
+
+/* ---------------- Financial ---------------- */
+
+Total Charges =
+SUM ( Admissions[total_charges] )
+
+Avg Charges per Admission =
+DIVIDE ( [Total Charges], [Total Admissions] )
+
+Charges % of Total =
+DIVIDE (
+    [Total Charges],
+    CALCULATE ( [Total Charges], ALL ( Admissions[payer] ) )
+)
+// Use inside a payer visual to show payer mix.
