@@ -1,0 +1,3 @@
+# The .pbix is built locally in Power BI Desktop (see docs/BUILD_GUIDE.md)
+# and committed once assembled. Nothing to ignore yet, but keep this file
+# so the repo root stays tidy.
