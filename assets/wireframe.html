@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hospital Ops Dashboard — Wireframes</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Arial, sans-serif; background:#f3f4f6; color:#1f2937; margin:0; padding:24px; }
+  h1 { font-size:22px; } h2 { font-size:17px; margin:28px 0 10px; }
+  p.sub { color:#6b7280; font-size:13px; }
+  .page { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:16px; margin-bottom:8px; }
+  .slicers { display:flex; gap:8px; margin-bottom:12px; }
+  .grid { display:grid; gap:10px; }
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .p1main { grid-template-columns: 2fr 1fr; }
+  .box { border:2px dashed #9ca3af; border-radius:8px; padding:14px; min-height:90px; background:#fafafa; }
+  .box b { display:block; font-size:13px; margin-bottom:4px; }
+  .box span { font-size:12px; color:#6b7280; }
+  .kpi { text-align:center; min-height:70px; }
+  .kpi b { font-size:12px; color:#374151; }
+  .kpi .v { font-size:22px; font-weight:700; color:#111827; margin-top:6px; }
+  .tall { min-height:200px; }
+</style>
+</head>
+<body>
+<h1>Hospital Operations Dashboard — Wireframes</h1>
+<p class="sub">Layout reference for <code>docs/BUILD_GUIDE.md</code>. Build each Power BI page to match.</p>
+
+<h2>Page 1 — Executive Overview</h2>
+<div class="page">
+  <div class="slicers">
+    <div class="box" style="min-height:0"><b>Slicer</b><span>Year</span></div>
+    <div class="box" style="min-height:0"><b>Slicer</b><span>Month</span></div>
+    <div class="box" style="min-height:0"><b>Slicer</b><span>Department</span></div>
+    <div class="box" style="min-height:0"><b>Slicer</b><span>Payer</span></div>
+  </div>
+  <div class="grid kpis">
+    <div class="box kpi"><b>Total Admissions</b><div class="v">12.2K</div></div>
+    <div class="box kpi"><b>Avg Length of Stay</b><div class="v">4.6 days</div></div>
+    <div class="box kpi"><b>Readmission Rate</b><div class="v">10.1%</div></div>
+    <div class="box kpi"><b>Total Charges</b><div class="v">$229M</div></div>
+  </div>
+  <div class="grid p1main" style="margin-top:10px">
+    <div class="box tall"><b>Line chart</b><span>Admissions by MonthYear + YTD trend</span></div>
+    <div class="box tall"><b>Donut chart</b><span>Charges % of Total by payer</span></div>
+  </div>
+  <div class="box tall" style="margin-top:10px"><b>Bar chart</b><span>Admissions by department</span></div>
+</div>
+
+<h2>Page 2 — Patient Flow &amp; Capacity</h2>
+<div class="page">
+  <div class="grid p1main">
+    <div class="box tall"><b>Bar chart</b><span>Bed Occupancy % by department, target line at 85%</span></div>
+    <div class="box tall"><b>Line chart</b><span>Avg Daily Census by MonthYear</span></div>
+  </div>
+  <div class="grid p1main" style="margin-top:10px">
+    <div class="box tall"><b>Bar chart</b><span>Avg Length of Stay by department</span></div>
+    <div class="box tall"><b>Matrix heatmap</b><span>Admissions: DayName × Month, conditional formatting</span></div>
+  </div>
+</div>
+
+<h2>Page 3 — Quality &amp; Readmissions</h2>
+<div class="page">
+  <div class="grid kpis" style="grid-template-columns:repeat(2,1fr)">
+    <div class="box kpi"><b>Readmissions (30-day)</b><div class="v">1,236</div></div>
+    <div class="box kpi"><b>Readmission Rate</b><div class="v">10.1%</div></div>
+  </div>
+  <div class="grid p1main" style="margin-top:10px">
+    <div class="box tall"><b>Bar chart</b><span>Readmission Rate by department</span></div>
+    <div class="box tall"><b>Line chart</b><span>Readmission Rate trend by MonthYear</span></div>
+  </div>
+  <div class="box tall" style="margin-top:10px"><b>Table</b><span>Diagnosis × Admissions, Avg LOS, Avg Charges, Readmission Rate</span></div>
+</div>
+</body>
+</html>
